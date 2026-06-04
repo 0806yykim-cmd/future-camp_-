@@ -102,7 +102,7 @@ body { background: #f9fafb; font-family: -apple-system, BlinkMacSystemFont, "Seg
 <div class="wrap">
   <!-- 역할 선택 -->
   <div class="role-selector">
-    <button class="role-btn active" onclick="setRole('test')">📝 사전과제 응시</button>
+    <button class="role-btn active" onclick="setRole('test')">📝 자가진단</button>
     <button class="role-btn" onclick="setRole('admin')">📊 관리자 현황</button>
   </div>
 
@@ -118,11 +118,6 @@ body { background: #f9fafb; font-family: -apple-system, BlinkMacSystemFont, "Seg
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
     <div id="questions"></div>
-    <div class="subj-card">
-      <div class="q-num">문항 12 · 주관식</div>
-      <div class="q-text">최근 현업에서 '<strong style="text-decoration: underline; font-size: 16px;">비즈니스 의사결정을 위해 경영진 설득</strong>'을 했던 사례가 있으신가요? 어떤 경험이 있으신지 아래에 작성해 주세요.</div>
-      <textarea class="subj-textarea" id="subj-answer" placeholder="예시) 설득 상대/과정에서 가장 어려웠던 점/보고상대가 동의하지 않은 이유/최종 결과 등" oninput="checkSubmitButton()"></textarea>
-    </div>
     <button class="submit-btn" id="submit-btn" onclick="submitTest()" disabled>📤 제출하기</button>
     <div class="score-card" id="score-card">
       <div style="font-size:13px;color:#6b7280;margin-bottom:0.5rem;">채점 결과</div>
@@ -218,10 +213,9 @@ function setRole(role) {
 function checkSubmitButton() {
   const empId = document.getElementById('emp-id').value.trim();
   const empName = document.getElementById('emp-name').value.trim();
-  const subj = document.getElementById('subj-answer').value.trim();
   const allAnswered = Object.keys(userAnswers).length === questions.length;
   
-  const canSubmit = empId && empName && subj && allAnswered;
+  const canSubmit = empId && empName && allAnswered;
   document.getElementById('submit-btn').disabled = !canSubmit;
 }
 
@@ -332,11 +326,9 @@ function closeAlert() {
 function submitTest() {
   const empId = document.getElementById('emp-id').value.trim();
   const empName = document.getElementById('emp-name').value.trim();
-  const subj = document.getElementById('subj-answer').value.trim();
   
   if (!empId) { alert('사번을 입력하세요'); return; }
   if (!empName) { alert('성명을 입력하세요'); return; }
-  if (!subj) { alert('12번 주관식 답변을 작성해 주세요'); return; }
   
   const allAnswered = Object.keys(userAnswers).length === questions.length;
   if (!allAnswered) { alert('모든 문항에 답변해 주세요'); return; }
